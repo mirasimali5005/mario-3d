@@ -1,12 +1,18 @@
 body {
     margin: 0;
     overflow: hidden;
-    background-color: #87CEEB; /* Sky blue fallback */
+    background-color: #87CEEB;
+    /* Sky blue fallback */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 canvas {
     display: block;
+    cursor: pointer;
+}
+
+canvas:hover {
+    cursor: crosshair;
 }
 
 #ui-container {

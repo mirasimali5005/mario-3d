@@ -83,6 +83,7 @@ class Game {
         const delta = this.clock.getDelta();
 
         this.player.update(delta, this.world.colliders);
+        this.world.update(delta);
         this.updateFPS();
 
         this.renderer.render(this.scene, this.camera);
