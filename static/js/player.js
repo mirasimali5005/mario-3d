@@ -50,7 +50,7 @@ export class Player {
 
         // Enhanced Mario materials
         const redMat = new THREE.MeshStandardMaterial({
-            color: 0xFF0000,
+            color: 0x0000FF,
             roughness: 0.7,
             metalness: 0.0
         });
