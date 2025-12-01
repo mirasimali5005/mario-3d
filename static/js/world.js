@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { createMarioMesh } from './mario_mesh.js';
+import { createCoinMesh } from './coin_mesh.js';
 
 export class World {
     constructor(scene) {
@@ -271,15 +272,6 @@ export class World {
     }
 
     createCoins() {
-        const coinGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.15, 32);
-        const coinMat = new THREE.MeshStandardMaterial({
-            color: 0xFFD700,
-            metalness: 1.0,
-            roughness: 0.1,
-            emissive: 0xFFD700,
-            emissiveIntensity: 0.4
-        });
-
         this.coins = [];
 
         const coinPositions = [
@@ -292,10 +284,8 @@ export class World {
         ];
 
         coinPositions.forEach(pos => {
-            const coin = new THREE.Mesh(coinGeo, coinMat);
+            const coin = createCoinMesh();
             coin.position.set(...pos);
-            coin.rotation.x = Math.PI / 2;
-            coin.castShadow = true;
             this.scene.add(coin);
             this.coins.push(coin);
         });
