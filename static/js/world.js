@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { createMarioMesh } from './mario_mesh.js';
 
 export class World {
     constructor(scene) {
@@ -10,7 +11,25 @@ export class World {
         this.createGround();
         this.createLevel();
         this.createCoins();
+        this.createCoins();
         this.createClouds();
+        this.createNPCs();
+    }
+
+    createNPCs() {
+        // NPC 1
+        const npc1 = createMarioMesh();
+        npc1.position.set(-5, 3, 5);
+        npc1.rotation.y = Math.PI / 4;
+        this.scene.add(npc1);
+        this.colliders.push(npc1); // Optional: make them solid
+
+        // NPC 2
+        const npc2 = createMarioMesh();
+        npc2.position.set(5, 3, 5);
+        npc2.rotation.y = -Math.PI / 4;
+        this.scene.add(npc2);
+        this.colliders.push(npc2);
     }
 
     createMaterials() {

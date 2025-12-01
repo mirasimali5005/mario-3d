@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { createMarioMesh } from './mario_mesh.js';
 
 export class Player {
     constructor(scene, camera) {
