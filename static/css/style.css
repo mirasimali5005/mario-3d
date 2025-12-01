@@ -26,15 +26,22 @@ canvas:hover {
     display: flex;
     justify-content: space-between;
     color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #fps-counter {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 #controls-hint {
-    font-size: 18px;
-    opacity: 0.8;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
 }
