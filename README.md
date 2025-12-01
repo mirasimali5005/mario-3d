@@ -19,9 +19,16 @@ A fun game in development! 🚧
 3.  **Play:**
     Open your browser and go to `http://127.0.0.1:5000`.
 
+## Features
+- **3D Platforming**: Classic movement with acceleration, friction, and jumping.
+- **Ray Tracing Effects**: Bloom, SSAO, and SSR for a modern look.
+- **NPCs**: Interact with other Mario characters in the world.
+- **Dynamic World**: Rotating coins, waving flags, and procedural textures.
+
 ## Controls
-- **WASD**: Move
+- **W, A, S, D**: Move Character
 - **Space**: Jump
+- **Mouse**: Look around (Click to lock cursor)
 
 ---
 *Built with Python Flask and Three.js*
