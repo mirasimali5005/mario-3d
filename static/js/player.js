@@ -176,8 +176,7 @@ export class Player {
 
         // Respawn if fall
         if (this.position.y < -20) {
-            this.position.set(-20, 3, 0);
-            this.velocity.set(0, 0, 0);
+            this.reset();
         }
 
         // Jump
@@ -205,6 +204,13 @@ export class Player {
 
         // Collect coins
         this.checkCoinCollection();
+    }
+
+    reset() {
+        this.position.set(-20, 3, 0);
+        this.velocity.set(0, 0, 0);
+        this.cameraYaw = 0;
+        this.cameraPitch = 0.4;
     }
 
     checkCollisions(colliders) {
