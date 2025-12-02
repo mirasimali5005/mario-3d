@@ -30,5 +30,15 @@ A fun game in development! 🚧
 - **Space**: Jump
 - **Mouse**: Look around (Click to lock cursor)
 
+## Project Structure
+- `app.py`: Flask backend
+- `static/js/`: Game logic and Three.js components
+  - `game.js`: Main game loop
+  - `world.js`: Level generation
+  - `player.js`: Player physics and control
+  - `mario_mesh.js`, `coin_mesh.js`, `cloud_mesh.js`: Asset generation
+  - `lights.js`, `materials.js`, `postprocessing.js`: Setup utilities
+- `static/css/`: Styles
+
 ---
 *Built with Python Flask and Three.js*
