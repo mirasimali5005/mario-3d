@@ -230,6 +230,14 @@ export class World {
         });
     }
 
+    removeCoin(coin) {
+        const index = this.coins.indexOf(coin);
+        if (index > -1) {
+            this.coins.splice(index, 1);
+            this.scene.remove(coin);
+        }
+    }
+
     createClouds() {
         for (let i = 0; i < 15; i++) {
             const cloud = createCloudMesh();
