@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 
-export function createMarioMesh() {
+export function createMarioMesh(color = 0x0000FF) {
     const mesh = new THREE.Group();
 
     // Enhanced Mario materials
     const redMat = new THREE.MeshStandardMaterial({
-        color: 0x0000FF, // Blue Mario as requested
+        color: color, // Custom color (Red/Green/Blue)
         roughness: 0.6,
         metalness: 0.1,
         envMapIntensity: 1.0

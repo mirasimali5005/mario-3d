@@ -2,9 +2,10 @@ import * as THREE from 'three';
 import { createMarioMesh } from './mario_mesh.js';
 
 export class Player {
-    constructor(scene, camera, keyMap = null) {
+    constructor(scene, camera, keyMap = null, color = 0x0000FF) {
         this.scene = scene;
         this.camera = camera;
+        this.color = color;
 
         // Default to WASD if no keyMap provided
         this.keyMap = keyMap || {
@@ -60,7 +61,7 @@ export class Player {
     }
 
     createMesh() {
-        this.mesh = createMarioMesh();
+        this.mesh = createMarioMesh(this.color);
         this.scene.add(this.mesh);
     }
 
