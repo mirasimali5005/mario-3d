@@ -2,9 +2,18 @@ import * as THREE from 'three';
 import { createMarioMesh } from './mario_mesh.js';
 
 export class Player {
-    constructor(scene, camera) {
+    constructor(scene, camera, keyMap = null) {
         this.scene = scene;
         this.camera = camera;
+
+        // Default to WASD if no keyMap provided
+        this.keyMap = keyMap || {
+            forward: 'KeyW',
+            backward: 'KeyS',
+            left: 'KeyA',
+            right: 'KeyD',
+            jump: 'Space'
+        };
 
         this.position = new THREE.Vector3(-20, 3, 0);
         this.velocity = new THREE.Vector3();
@@ -35,11 +44,11 @@ export class Player {
         this.targetCameraPos = new THREE.Vector3();
 
         this.keys = {
-            w: false,
-            a: false,
-            s: false,
-            d: false,
-            space: false
+            forward: false,
+            backward: false,
+            left: false,
+            right: false,
+            jump: false
         };
 
         this.score = 0;
@@ -50,7 +59,65 @@ export class Player {
         this.updateScoreDisplay();
     }
 
-    // ... (createMesh, setupPointerLock, setupInputs, onKeyDown, onKeyUp remain the same)
+    createMesh() {
+        this.mesh = createMarioMesh();
+        this.scene.add(this.mesh);
+    }
+
+    setupPointerLock() {
+        const canvas = document.querySelector('canvas');
+
+        canvas.addEventListener('click', () => {
+            canvas.requestPointerLock();
+        });
+
+        document.addEventListener('pointerlockchange', () => {
+            this.isPointerLocked = document.pointerLockElement === canvas;
+            if (this.isPointerLocked) {
+                document.getElementById('controls-hint').style.display = 'none';
+            } else {
+                document.getElementById('controls-hint').style.display = 'block';
+            }
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (this.isPointerLocked) {
+                this.cameraYaw -= e.movementX * this.mouseSensitivity;
+                this.cameraPitch -= e.movementY * this.mouseSensitivity;
+
+                // Clamp pitch
+                this.cameraPitch = Math.max(-Math.PI / 4, Math.min(Math.PI / 2.5, this.cameraPitch));
+            }
+        });
+    }
+
+    setupInputs() {
+        document.addEventListener('keydown', (e) => this.onKeyDown(e), false);
+        document.addEventListener('keyup', (e) => this.onKeyUp(e), false);
+    }
+
+    onKeyDown(event) {
+        switch (event.code) {
+            case this.keyMap.forward: this.keys.forward = true; break;
+            case this.keyMap.left: this.keys.left = true; break;
+            case this.keyMap.backward: this.keys.backward = true; break;
+            case this.keyMap.right: this.keys.right = true; break;
+            case this.keyMap.jump:
+                this.keys.jump = true;
+                event.preventDefault();
+                break;
+        }
+    }
+
+    onKeyUp(event) {
+        switch (event.code) {
+            case this.keyMap.forward: this.keys.forward = false; break;
+            case this.keyMap.left: this.keys.left = false; break;
+            case this.keyMap.backward: this.keys.backward = false; break;
+            case this.keyMap.right: this.keys.right = false; break;
+            case this.keyMap.jump: this.keys.jump = false; break;
+        }
+    }
 
     update(delta, colliders) {
         // Apply gravity
@@ -70,10 +137,10 @@ export class Player {
             Math.cos(this.cameraYaw + Math.PI / 2)
         );
 
-        if (this.keys.w) moveDir.add(forward);
-        if (this.keys.s) moveDir.sub(forward);
-        if (this.keys.a) moveDir.sub(right);
-        if (this.keys.d) moveDir.add(right);
+        if (this.keys.forward) moveDir.add(forward);
+        if (this.keys.backward) moveDir.sub(forward);
+        if (this.keys.left) moveDir.sub(right);
+        if (this.keys.right) moveDir.add(right);
 
         // Normalize input vector
         if (moveDir.length() > 0) {
@@ -180,7 +247,7 @@ export class Player {
         }
 
         // Jump
-        if (this.keys.space && this.isGrounded) {
+        if (this.keys.jump && this.isGrounded) {
             this.velocity.y = this.jumpForce;
             this.isGrounded = false;
         }
