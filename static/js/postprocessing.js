@@ -19,7 +19,7 @@ export function setupPostProcessing(renderer, scene, camera) {
     ssaoPass.maxDistance = 0.1;
     composer.addPass(ssaoPass);
 
-    // SSR (Screen Space Reflections)
+    // SSR (Screen Space Reflections) - Enhanced Ray Tracing
     const ssrPass = new SSRPass({
         renderer: renderer,
         scene: scene,
@@ -29,9 +29,10 @@ export function setupPostProcessing(renderer, scene, camera) {
         groundReflector: null,
         selects: null
     });
-    ssrPass.thickness = 0.018;
+    ssrPass.thickness = 0.03; // Increased thickness
     ssrPass.infiniteThick = false;
-    ssrPass.maxDistance = 0.1;
+    ssrPass.maxDistance = 0.5; // Increased distance
+    ssrPass.opacity = 1.0;
     composer.addPass(ssrPass);
 
     // Bloom
