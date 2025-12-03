@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +15,17 @@
         }
     </script>
 </head>
+
 <body>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+    </div>
+    <div id="split-line"></div>
     <div id="ui-container">
         <div id="fps-counter">FPS: 0</div>
         <div id="controls-hint">WASD to Move | SPACE to Jump</div>
     </div>
     <script type="module" src="{{ url_for('static', filename='js/game.js') }}"></script>
 </body>
+
 </html>

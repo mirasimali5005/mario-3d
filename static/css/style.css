@@ -77,3 +77,14 @@ canvas:hover {
         transform: rotate(360deg);
     }
 }
+
+#split-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 50;
+    pointer-events: none;
+}
