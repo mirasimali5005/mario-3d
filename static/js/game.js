@@ -14,7 +14,21 @@ class Game {
         this.setupLights();
 
         this.world = new World(this.scene);
+
+        // Player 1 (Mario - WASD - Blue/Red)
         this.player = new Player(this.scene, this.camera);
+
+        // Player 2 (Luigi - Arrows - Green)
+        this.camera2 = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const p2Keys = {
+            forward: 'ArrowUp',
+            backward: 'ArrowDown',
+            left: 'ArrowLeft',
+            right: 'ArrowRight',
+            jump: 'ShiftRight'
+        };
+        this.player2 = new Player(this.scene, this.camera2, p2Keys, 0x00FF00);
+        this.player2.position.x = -15; // Start slightly apart
 
         this.setupPostProcessing();
 
@@ -70,6 +84,7 @@ class Game {
         const delta = this.clock.getDelta();
 
         this.player.update(delta, this.world.colliders);
+        this.player2.update(delta, this.world.colliders);
         this.world.update(delta);
         this.updateFPS();
 
