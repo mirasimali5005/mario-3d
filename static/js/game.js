@@ -7,7 +7,7 @@ import { setupPostProcessing } from './postprocessing.js';
 class Game {
     constructor() {
         this.scene = new THREE.Scene();
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(75, (window.innerWidth / 2) / window.innerHeight, 0.1, 1000);
         this.renderer = new THREE.WebGLRenderer({ antialias: false }); // Antialias false for post-processing
 
         this.setupRenderer();
@@ -19,7 +19,7 @@ class Game {
         this.player = new Player(this.scene, this.camera);
 
         // Player 2 (Luigi - Arrows - Green)
-        this.camera2 = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.camera2 = new THREE.PerspectiveCamera(75, (window.innerWidth / 2) / window.innerHeight, 0.1, 1000);
         const p2Keys = {
             forward: 'ArrowUp',
             backward: 'ArrowDown',
@@ -60,11 +60,18 @@ class Game {
     }
 
     onWindowResize() {
-        this.camera.aspect = window.innerWidth / window.innerHeight;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        this.camera.aspect = (width / 2) / height;
         this.camera.updateProjectionMatrix();
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+        this.camera2.aspect = (width / 2) / height;
+        this.camera2.updateProjectionMatrix();
+
+        this.renderer.setSize(width, height);
         if (this.composer) {
-            this.composer.setSize(window.innerWidth, window.innerHeight);
+            this.composer.setSize(width, height);
         }
     }
 
@@ -88,8 +95,26 @@ class Game {
         this.world.update(delta);
         this.updateFPS();
 
-        // Use composer for rendering
-        this.composer.render();
+        // Split Screen Rendering
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+
+        this.renderer.setScissorTest(true);
+
+        // Player 1 (Left)
+        this.renderer.setScissor(0, 0, width / 2, height);
+        this.renderer.setViewport(0, 0, width / 2, height);
+        this.composer.render(); // Uses main camera (P1)
+
+        // Player 2 (Right)
+        // Note: Post-processing is tricky with split screen in this setup.
+        // For simplicity, we'll render P2 without post-processing or we'd need 2 composers.
+        // Let's try to just render P2 scene directly for now to ensure it works.
+        this.renderer.setScissor(width / 2, 0, width / 2, height);
+        this.renderer.setViewport(width / 2, 0, width / 2, height);
+        this.renderer.render(this.scene, this.camera2);
+
+        this.renderer.setScissorTest(false);
     }
 }
 
