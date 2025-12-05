@@ -4,6 +4,9 @@ import { World } from './world.js';
 import { setupLights } from './lights.js';
 import { setupPostProcessing } from './postprocessing.js';
 
+/**
+ * Main Game class handling the Three.js scene, renderer, and game loop.
+ */
 class Game {
     constructor() {
         this.scene = new THREE.Scene();
@@ -85,6 +88,9 @@ class Game {
         }
     }
 
+    /**
+     * Main animation loop.
+     */
     animate() {
         requestAnimationFrame(() => this.animate());
 
