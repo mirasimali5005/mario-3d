@@ -1,5 +1,10 @@
 __pycache__/
-*.py[cod]
+*.pyc
+.DS_Store
+.vscode/
+.idea/
+*.log
+node_modules/
 *$py.class
 .DS_Store
 .env
