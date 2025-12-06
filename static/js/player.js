@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import { createMarioMesh } from './mario_mesh.js';
 
+/**
+ * Player class handling physics, input, and camera control.
+ */
 export class Player {
     constructor(scene, camera, keyMap = null, color = 0x0000FF) {
         this.scene = scene;
@@ -120,6 +123,11 @@ export class Player {
         }
     }
 
+    /**
+     * Updates player physics and camera.
+     * @param {number} delta - Time delta.
+     * @param {Array} colliders - List of collidable objects.
+     */
     update(delta, colliders) {
         // Apply gravity
         this.velocity.y -= this.gravity * delta;
