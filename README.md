@@ -40,5 +40,10 @@ A fun game in development! 🚧
   - `lights.js`, `materials.js`, `postprocessing.js`: Setup utilities
 - `static/css/`: Styles
 
+## Credits
+- **Three.js**: 3D Rendering Engine.
+- **Flask**: Python Web Framework.
+- **Google Fonts**: Typography.
+
 ---
 *Built with Python Flask and Three.js*
