@@ -5,6 +5,9 @@ import { createCoinMesh } from './coin_mesh.js';
 import { createCloudMesh } from './cloud_mesh.js';
 import { createMaterials } from './materials.js';
 
+/**
+ * World class handling level generation, collisions, and object management.
+ */
 export class World {
     constructor(scene) {
         this.scene = scene;
@@ -64,6 +67,9 @@ export class World {
         this.scene.add(underground);
     }
 
+    /**
+     * Generates the game level procedurally.
+     */
     createLevel() {
         const createBlock = (x, y, z, material, isQuestion = false) => {
             const geo = new RoundedBoxGeometry(2, 2, 2, 4, 0.2);
